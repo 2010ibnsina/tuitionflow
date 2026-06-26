@@ -504,9 +504,7 @@ width:
         color: "white",
       }}
     >
-      <h1 className="mb-4">
-        Tuition Dashboard
-      </h1>
+      
        <button
         className="btn btn-danger"
         onClick={() => {
@@ -517,7 +515,6 @@ width:
 
         }}
       >
-        Logout
       </button>
 
       {/* Top Cards */}
