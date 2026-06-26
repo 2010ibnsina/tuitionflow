@@ -37,7 +37,12 @@ function Payments() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await api.post("payments/", formData);
+    try {
+  const response = await api.post("payments/", formData);
+  console.log(response.data);
+} catch (error) {
+  console.log(error.response.data);
+}
 
     setFormData({
       student: "",
