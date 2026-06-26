@@ -154,25 +154,7 @@ function Sidebar() {
             and grow your tuition business with ease.
           </p>
 
-          <button
-            style={{
-              marginTop: "12px",
-              border: "none",
-              background: "#fff",
-              color: "#2a5298",
-              padding: "10px 18px",
-              borderRadius: "25px",
-              fontWeight: "600",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              marginInline: "auto",
-            }}
-          >
-            Explore
-            <FaArrowRight />
-          </button>
+          
         </div>
 
         <p

@@ -85,12 +85,7 @@ function Home() {
 
           <div className="col-lg-6">
 
-            <span
-              className="badge bg-success px-3 py-2 mb-3"
-            >
-              🚀 Smart Tuition Management System
-            </span>
-
+            
             <h1 style={styles.heroTitle}>
 
               Tuition
@@ -780,18 +775,11 @@ function Home() {
               className="btn btn-light btn-lg px-5 me-3"
             >
 
-              Get Started
+              Join Us Now
 
             </Link>
 
-            <Link
-              to="/login"
-              className="btn btn-outline-light btn-lg px-5"
-            >
-
-              Login
-
-            </Link>
+            
 
           </div>
 
@@ -828,36 +816,7 @@ function Home() {
 
         </p>
 
-        <div className="mt-4">
-
-          <Link
-            to="/"
-            className="text-decoration-none text-light me-4"
-          >
-
-            Home
-
-          </Link>
-
-          <Link
-            to="/register"
-            className="text-decoration-none text-light me-4"
-          >
-
-            Register
-
-          </Link>
-
-          <Link
-            to="/login"
-            className="text-decoration-none text-light"
-          >
-
-            Login
-
-          </Link>
-
-        </div>
+        
 
         <hr
           className="my-4"

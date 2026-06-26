@@ -138,13 +138,7 @@ function Navbar() {
                   </span>
                 )}
 
-                <Link
-                  to="/dashboard"
-                  className="btn btn-light rounded-pill px-4"
-                >
-                  <FaTachometerAlt className="me-2" />
-                  Dashboard
-                </Link>
+                
 
                 <button
                   className="btn btn-danger rounded-pill px-4"
