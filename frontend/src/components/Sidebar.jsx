@@ -60,25 +60,7 @@ function Sidebar() {
             }}
           />
 
-          <h2
-            style={{
-              margin: 0,
-              fontWeight: "700",
-              letterSpacing: "1px",
-            }}
-          >
-            TuitionFlow
-          </h2>
-
-          <p
-            style={{
-              opacity: 0.8,
-              fontSize: "14px",
-              marginTop: "8px",
-            }}
-          >
-            Smart Tuition Management
-          </p>
+          
         </div>
 
         {/* Navigation */}
