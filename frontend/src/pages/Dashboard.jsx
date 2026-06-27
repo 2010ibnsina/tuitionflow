@@ -308,7 +308,7 @@ const subjectData = {
 
 };
 
-<Bar data={subjectData} />
+
 const monthlyCollection = [
 
 0,0,0,0,0,0,
@@ -532,6 +532,9 @@ expectedIncome
 0;
 
   return (
+
+
+    
     <div
       className="container-fluid p-4"
       style={{
@@ -542,7 +545,9 @@ expectedIncome
         color: "white",
       }}
     >
-      
+      <Bar data={subjectData} />
+            <Bar data={monthlyData} />
+
        <button
         className="btn btn-danger"
         onClick={() => {
@@ -638,6 +643,82 @@ width:
 </div>
 
 </div>
+
+<table className="table table-dark">
+
+<thead>
+
+<tr>
+
+<th>Student</th>
+
+<th>Status</th>
+
+<th>Date</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{attendance
+.slice(0,5)
+.map(item=>(
+
+<tr key={item.id}>
+
+<td>
+
+{item.student_name}
+
+</td>
+
+<td>
+
+{item.status}
+
+</td>
+
+<td>
+
+{item.date}
+
+</td>
+
+</tr>
+
+))}
+
+</tbody>
+
+</table>
+
+<table className="table table-dark">
+
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Amount</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          {recentPayments.map(payment => (
+
+            <tr key={payment.id}>
+              <td>{payment.student_name}</td>
+              <td>৳{payment.amount}</td>
+              <td>{payment.payment_date}</td>
+            </tr>
+
+          ))}
+
+        </tbody>
+
+      </table>
 
 
         <div className="col-md-3 mb-3">
@@ -799,6 +880,47 @@ data={attendanceChart}
 
 </div>
 
+<table className="table table-dark">
+
+       <thead>
+  <tr>
+    <th>Name</th>
+    <th>Fee</th>
+    <th>Paid</th>
+    <th>Due</th>
+  </tr>
+</thead>
+
+<tbody>
+
+  {dueStudents.map(student => (
+
+    <tr key={student.id}>
+
+      <td>
+        {student.name}
+      </td>
+
+      <td>
+        ৳{student.monthly_fee}
+      </td>
+
+      <td>
+        ৳{student.totalPaid}
+      </td>
+
+      <td>
+        ৳{student.dueAmount}
+      </td>
+
+    </tr>
+
+  ))}
+
+</tbody>
+
+      </table>
+
 
       {/* Bottom Charts */}
 
@@ -843,7 +965,6 @@ data={attendanceChart}
         Monthly Collection Summary
       </h4>
       
-      <Bar data={monthlyData} />
 
     </div>
 
@@ -880,84 +1001,11 @@ background:"#131c31"
 Today's Attendance
 </h4>
 
-<table className="table table-dark">
-
-<thead>
-
-<tr>
-
-<th>Student</th>
-
-<th>Status</th>
-
-<th>Date</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-{attendance
-.slice(0,5)
-.map(item=>(
-
-<tr key={item.id}>
-
-<td>
-
-{item.student_name}
-
-</td>
-
-<td>
-
-{item.status}
-
-</td>
-
-<td>
-
-{item.date}
-
-</td>
-
-</tr>
-
-))}
-
-</tbody>
-
-</table>
 
 </div>
 
 
-      <table className="table table-dark">
-
-        <thead>
-          <tr>
-            <th>Student</th>
-            <th>Amount</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          {recentPayments.map(payment => (
-
-            <tr key={payment.id}>
-              <td>{payment.student_name}</td>
-              <td>৳{payment.amount}</td>
-              <td>{payment.payment_date}</td>
-            </tr>
-
-          ))}
-
-        </tbody>
-
-      </table>
+      
 
     </div>
 
@@ -970,46 +1018,7 @@ Today's Attendance
         Due Students
       </h4>
 
-      <table className="table table-dark">
-
-       <thead>
-  <tr>
-    <th>Name</th>
-    <th>Fee</th>
-    <th>Paid</th>
-    <th>Due</th>
-  </tr>
-</thead>
-
-<tbody>
-
-  {dueStudents.map(student => (
-
-    <tr key={student.id}>
-
-      <td>
-        {student.name}
-      </td>
-
-      <td>
-        ৳{student.monthly_fee}
-      </td>
-
-      <td>
-        ৳{student.totalPaid}
-      </td>
-
-      <td>
-        ৳{student.dueAmount}
-      </td>
-
-    </tr>
-
-  ))}
-
-</tbody>
-
-      </table>
+      
 
     </div>
 
