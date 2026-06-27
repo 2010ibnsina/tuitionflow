@@ -1,46 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 
 function DashboardLayout({ children }) {
-  const [showSidebar, setShowSidebar] = useState(window.innerWidth > 768);
-
-  useEffect(() => {
-    const resize = () => {
-      if (window.innerWidth > 768) {
-        setShowSidebar(true);
-      } else {
-        setShowSidebar(false);
-      }
-    };
-
-    window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
-  }, []);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <>
-      <Navbar toggleSidebar={() => setShowSidebar(!showSidebar)} />
+      <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
 
-      <div
-  style={{
-    display: "flex",
-    flexDirection: window.innerWidth <= 768 ? "column" : "row",
-  }}
->
-  {window.innerWidth > 768 && <Sidebar />}
+      <div style={{ display: "flex" }}>
+        <Sidebar
+          isOpen={sidebarOpen}
+          closeSidebar={() => setSidebarOpen(false)}
+        />
 
-  <div
-    style={{
-      flex: 1,
-      padding: "20px",
-      width: "100%",
-      overflowX: "hidden",
-    }}
-  >
-    {children}
-  </div>
-</div>
+        <div
+          style={{
+            flex: 1,
+            padding: "20px",
+          }}
+        >
+          {children}
+        </div>
+      </div>
     </>
   );
 }

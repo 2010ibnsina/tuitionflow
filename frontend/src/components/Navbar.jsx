@@ -10,7 +10,7 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 
-function Navbar() {
+function Navbar({ toggleSidebar })  {
 
   const navigate = useNavigate();
 
@@ -83,11 +83,7 @@ function Navbar() {
           <button
   className="navbar-toggler"
   type="button"
-  data-bs-toggle="collapse"
-  data-bs-target="#navbarNav"
-  aria-controls="navbarNav"
-  aria-expanded="false"
-  aria-label="Toggle navigation"
+  onClick={toggleSidebar}
 >
   <span className="navbar-toggler-icon"></span>
 </button>
