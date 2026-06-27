@@ -23,7 +23,7 @@ function Navbar() {
     if (!token) return;
 
     axios.get(
-      "http://127.0.0.1:8000/api/accounts/profile/",
+  "https://tuitionflow-backend.onrender.com/api/accounts/profile/",
       {
         headers: {
           Authorization: `Bearer ${token}`

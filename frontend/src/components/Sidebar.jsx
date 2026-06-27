@@ -27,7 +27,7 @@ function Sidebar() {
   return (
     <div
       style={{
-        width: "260px",
+        width: window.innerWidth < 768 ? "220px" : "260px",
         minHeight: "100vh",
         background:
           "linear-gradient(180deg, #1e3c72 0%, #2a5298 50%, #4facfe 100%)",
