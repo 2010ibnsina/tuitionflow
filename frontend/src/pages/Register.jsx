@@ -21,9 +21,9 @@ function Register() {
     try {
 
   const response = await axios.post(
-    "http://127.0.0.1:8000/api/accounts/register/",
-    form
-  );
+  "https://tuitionflow-backend.onrender.com/api/accounts/register/",
+  form
+);
 
   alert("Registration Successful");
 
