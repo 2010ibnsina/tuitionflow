@@ -135,34 +135,7 @@ const lateCount =
     }
   ]
 };
-<div className="col-md-3 mb-3">
 
-<div
-className="card text-white"
-style={{
-background:"#20c997"
-}}
->
-
-<div className="card-body">
-
-<h5>
-Attendance
-</h5>
-
-<h2>
-{presentCount}
-</h2>
-
-<p>
-Present Today
-</p>
-
-</div>
-
-</div>
-
-</div>
 
 
   // ========================
@@ -557,29 +530,6 @@ expectedIncome
 :
 
 0;
-<div
-className="progress"
->
-
-<div
-
-className="
-progress-bar
-bg-success
-"
-
-style={{
-width:
-`${paymentPercentage}%`
-}}
-
->
-
-{paymentPercentage}%
-
-</div>
-
-</div>
 
   return (
     <div
@@ -636,6 +586,59 @@ width:
   </div>
 
 </div>
+
+<div className="col-md-3 mb-3">
+
+<div
+className="card text-white"
+style={{
+background:"#20c997"
+}}
+>
+
+<div className="card-body">
+
+<h5>
+Attendance
+</h5>
+
+<h2>
+{presentCount}
+</h2>
+
+<p>
+Present Today
+</p>
+
+</div>
+
+</div>
+
+</div>
+<div
+className="progress"
+>
+
+<div
+
+className="
+progress-bar
+bg-success
+"
+
+style={{
+width:
+`${paymentPercentage}%`
+}}
+
+>
+
+{paymentPercentage}%
+
+</div>
+
+</div>
+
 
         <div className="col-md-3 mb-3">
           <div
