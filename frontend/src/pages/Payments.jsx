@@ -36,24 +36,33 @@ function Payments() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-   try {
-    await api.post("payments/", formData);
-} catch (error) {
-    console.log(error.response.status);
-    console.log(error.response.data);
-}
+  e.preventDefault();
+
+  try {
+    const response = await api.post("payments/", formData);
+
+    console.log("Payment Saved:", response.data);
 
     setFormData({
       student: "",
       amount: "",
       month: "",
       year: "",
-      payment_date: ""
+      payment_date: "",
     });
 
     getPayments();
-  };
+
+    alert("Payment Added Successfully!");
+
+  } catch (error) {
+
+    console.log("STATUS:", error.response?.status);
+    console.log("DATA:", error.response?.data);
+
+    alert(JSON.stringify(error.response?.data));
+  }
+};
 
   return (
     <div className="container py-4">
