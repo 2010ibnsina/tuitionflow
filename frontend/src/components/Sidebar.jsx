@@ -8,10 +8,22 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 
-function Sidebar({
-  sidebarOpen,
-  setSidebarOpen,
-}) {
+import { useEffect, useState } from "react";
+import api from "../api/axios";
+
+function Sidebar({ sidebarOpen, setSidebarOpen }) {
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    api.get("accounts/profile/")
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   const menuStyle = {
     display: "flex",
     alignItems: "center",
@@ -73,27 +85,49 @@ function Sidebar({
 >
       {/* Logo */}
       <div>
-        <div
-          style={{
-            textAlign: "center",
-            marginBottom: "35px",
-          }}
-        >
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
-            alt="Logo"
-            style={{
-              width: "85px",
-              height: "85px",
-              borderRadius: "50%",
-              background: "white",
-              padding: "8px",
-              marginBottom: "15px",
-            }}
-          />
+       <div
+  style={{
+    textAlign: "center",
+    marginBottom: "35px",
+  }}
+>
+  <img
+    src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
+    alt="Profile"
+    style={{
+      width: "85px",
+      height: "85px",
+      borderRadius: "50%",
+      background: "white",
+      padding: "8px",
+      marginBottom: "15px",
+    }}
+  />
 
-          
-        </div>
+  {user && (
+    <>
+      <h4
+        style={{
+          margin: "0",
+          color: "white",
+          fontWeight: "bold",
+        }}
+      >
+        👋 {user.username}
+      </h4>
+
+      <p
+        style={{
+          marginTop: "6px",
+          color: "#dbeafe",
+          fontSize: "13px",
+        }}
+      >
+        Welcome back
+      </p>
+    </>
+  )}
+</div>
 
         {/* Navigation */}
 
