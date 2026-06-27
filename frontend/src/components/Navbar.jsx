@@ -10,7 +10,10 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 
-function Navbar({ toggleSidebar })  {
+function Navbar({
+  sidebarOpen,
+  setSidebarOpen,
+}) {
 
   const navigate = useNavigate();
 
@@ -80,10 +83,11 @@ function Navbar({ toggleSidebar })  {
 
           {/* Mobile Toggle */}
 
-          <button
+         <button
   className="navbar-toggler"
-  type="button"
-  onClick={toggleSidebar}
+  onClick={() =>
+    setSidebarOpen(!sidebarOpen)
+  }
 >
   <span className="navbar-toggler-icon"></span>
 </button>

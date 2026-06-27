@@ -7,22 +7,40 @@ function DashboardLayout({ children }) {
 
   return (
     <>
-      <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+      <Navbar
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
 
-      <div style={{ display: "flex" }}>
-        <Sidebar
-          isOpen={sidebarOpen}
-          closeSidebar={() => setSidebarOpen(false)}
-        />
-
+      {/* Dark overlay */}
+      {sidebarOpen && (
         <div
+          onClick={() => setSidebarOpen(false)}
           style={{
-            flex: 1,
-            padding: "20px",
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,.5)",
+            zIndex: 998,
           }}
-        >
-          {children}
-        </div>
+        />
+      )}
+
+      <Sidebar
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
+
+      <div
+        style={{
+          marginLeft:
+            window.innerWidth >= 768
+              ? "260px"
+              : "0",
+          padding: "20px",
+          transition: ".3s",
+        }}
+      >
+        {children}
       </div>
     </>
   );

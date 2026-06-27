@@ -8,7 +8,10 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 
-function Sidebar() {
+function Sidebar({
+  sidebarOpen,
+  setSidebarOpen,
+}) {
   const menuStyle = {
     display: "flex",
     alignItems: "center",
@@ -26,19 +29,48 @@ function Sidebar() {
 
   return (
     <div
-      style={{
-        width: window.innerWidth < 768 ? "220px" : "260px",
-        minHeight: "100vh",
-        background:
-          "linear-gradient(180deg, #1e3c72 0%, #2a5298 50%, #4facfe 100%)",
-        color: "white",
-        padding: "25px 18px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        boxShadow: "5px 0 15px rgba(0,0,0,0.15)",
-      }}
-    >
+  style={{
+    position:
+      window.innerWidth < 768
+        ? "fixed"
+        : "fixed",
+
+    left:
+      window.innerWidth < 768
+        ? sidebarOpen
+          ? "0"
+          : "-280px"
+        : "0",
+
+    top: 0,
+
+    width: "260px",
+
+    height: "100vh",
+
+    zIndex: 999,
+
+    transition: ".3s",
+
+    background:
+      "linear-gradient(180deg,#1e3c72,#2a5298,#4facfe)",
+
+    color: "white",
+
+    padding: "25px 18px",
+
+    display: "flex",
+
+    flexDirection: "column",
+
+    justifyContent: "space-between",
+
+    boxShadow:
+      "5px 0 20px rgba(0,0,0,.3)",
+
+    overflowY: "auto",
+  }}
+>
       {/* Logo */}
       <div>
         <div
@@ -66,60 +98,64 @@ function Sidebar() {
         {/* Navigation */}
 
         <Link
-          to="/dashboard"
-          style={menuStyle}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.background = "rgba(255,255,255,0.20)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.background = "rgba(255,255,255,0.08)")
-          }
-        >
-          <FaHome size={20} />
-          Dashboard
-        </Link>
+  to="/dashboard"
+  style={menuStyle}
+  onClick={() => setSidebarOpen(false)}
+  onMouseEnter={(e) =>
+    (e.currentTarget.style.background = "rgba(255,255,255,0.20)")
+  }
+  onMouseLeave={(e) =>
+    (e.currentTarget.style.background = "rgba(255,255,255,0.08)")
+  }
+>
+  <FaHome size={20} />
+  Dashboard
+</Link>
+
+       <Link
+  to="/students"
+  style={menuStyle}
+  onClick={() => setSidebarOpen(false)}
+  onMouseEnter={(e) =>
+    (e.currentTarget.style.background = "rgba(255,255,255,0.20)")
+  }
+  onMouseLeave={(e) =>
+    (e.currentTarget.style.background = "rgba(255,255,255,0.08)")
+  }
+>
+  <FaUserGraduate size={20} />
+  Students
+</Link>
 
         <Link
-          to="/students"
-          style={menuStyle}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.background = "rgba(255,255,255,0.20)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.background = "rgba(255,255,255,0.08)")
-          }
-        >
-          <FaUserGraduate size={20} />
-          Students
-        </Link>
+  to="/add"
+  style={menuStyle}
+  onClick={() => setSidebarOpen(false)}
+  onMouseEnter={(e) =>
+    (e.currentTarget.style.background = "rgba(255,255,255,0.20)")
+  }
+  onMouseLeave={(e) =>
+    (e.currentTarget.style.background = "rgba(255,255,255,0.08)")
+  }
+>
+  <FaUserPlus size={20} />
+  Add Student
+</Link>
 
-        <Link
-          to="/add"
-          style={menuStyle}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.background = "rgba(255,255,255,0.20)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.background = "rgba(255,255,255,0.08)")
-          }
-        >
-          <FaUserPlus size={20} />
-          Add Student
-        </Link>
-
-        <Link
-          to="/payments"
-          style={menuStyle}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.background = "rgba(255,255,255,0.20)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.background = "rgba(255,255,255,0.08)")
-          }
-        >
-          <FaMoneyBillWave size={20} />
-          Payments
-        </Link>
+       <Link
+  to="/payments"
+  style={menuStyle}
+  onClick={() => setSidebarOpen(false)}
+  onMouseEnter={(e) =>
+    (e.currentTarget.style.background = "rgba(255,255,255,0.20)")
+  }
+  onMouseLeave={(e) =>
+    (e.currentTarget.style.background = "rgba(255,255,255,0.08)")
+  }
+>
+  <FaMoneyBillWave size={20} />
+  Payments
+</Link>
       </div>
 
       {/* Bottom Section */}
