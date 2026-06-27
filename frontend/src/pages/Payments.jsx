@@ -37,11 +37,11 @@ function Payments() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-  const response = await api.post("payments/", formData);
-  console.log(response.data);
+   try {
+    await api.post("payments/", formData);
 } catch (error) {
-  console.log(error.response.data);
+    console.log(error.response.status);
+    console.log(error.response.data);
 }
 
     setFormData({
