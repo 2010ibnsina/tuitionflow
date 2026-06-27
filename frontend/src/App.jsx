@@ -13,12 +13,23 @@ import Payments from "./pages/Payments";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardLayout from "./components/DashboardLayout";
 import Profile from "./pages/Profile";
+import Attendance from "./pages/Attendance";
 
 function App() {
   return (
     <Routes>
 
       {/* PUBLIC ROUTES */}
+      <Route
+  path="/attendance"
+  element={
+    <ProtectedRoute>
+      <DashboardLayout>
+        <Attendance />
+      </DashboardLayout>
+    </ProtectedRoute>
+  }
+/>
 
       <Route
         path="/"

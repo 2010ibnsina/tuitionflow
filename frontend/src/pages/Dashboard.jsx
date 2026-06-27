@@ -27,6 +27,8 @@ ChartJS.register(
 );
 
 function Dashboard() {
+  const [attendance, setAttendance] = useState([]);
+
   const [students, setStudents] = useState([]);
   const [payments, setPayments] = useState([]);
 
@@ -35,20 +37,27 @@ function Dashboard() {
   }, []);
 
   const loadData = async () => {
-    try {
-      const studentResponse =
-        await api.get("students/");
+  try {
 
-      const paymentResponse =
-        await api.get("payments/");
+    const studentResponse =
+      await api.get("students/");
 
-      setStudents(studentResponse.data);
-      setPayments(paymentResponse.data);
+    const paymentResponse =
+      await api.get("payments/");
 
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    const attendanceResponse =
+      await api.get("attendance/");
+
+    setStudents(studentResponse.data);
+
+    setPayments(paymentResponse.data);
+
+    setAttendance(attendanceResponse.data);
+
+  } catch(error){
+    console.log(error);
+  }
+};
 
   // ========================
   // Dashboard Calculations
@@ -76,6 +85,85 @@ function Dashboard() {
   const dueAmount =
     expectedIncome -
     collectedIncome;
+    // ========================
+// Attendance Calculations
+// ========================
+
+const totalAttendance =
+  attendance.length;
+
+const presentCount =
+  attendance.filter(
+    item => item.status === "Present"
+  ).length;
+
+const absentCount =
+  attendance.filter(
+    item => item.status === "Absent"
+  ).length;
+
+const lateCount =
+  attendance.filter(
+    item => item.status === "Late"
+  ).length;
+
+  const attendanceChart = {
+
+  labels: [
+    "Present",
+    "Absent",
+    "Late"
+  ],
+
+  datasets: [
+    {
+
+      data: [
+        presentCount,
+        absentCount,
+        lateCount
+      ],
+
+      backgroundColor: [
+
+        "#198754",
+        "#dc3545",
+        "#ffc107"
+
+      ]
+
+    }
+  ]
+};
+<div className="col-md-3 mb-3">
+
+<div
+className="card text-white"
+style={{
+background:"#20c997"
+}}
+>
+
+<div className="card-body">
+
+<h5>
+Attendance
+</h5>
+
+<h2>
+{presentCount}
+</h2>
+
+<p>
+Present Today
+</p>
+
+</div>
+
+</div>
+
+</div>
+
 
   // ========================
   // Pie Chart
@@ -687,6 +775,27 @@ width:
         </div>
 
       </div>
+      <div className="col-md-4">
+
+<div
+className="card p-3 text-white"
+style={{
+background:"#131c31"
+}}
+>
+
+<h4>
+Attendance
+</h4>
+
+<Pie
+data={attendanceChart}
+/>
+
+</div>
+
+</div>
+
 
       {/* Bottom Charts */}
 
@@ -755,6 +864,68 @@ width:
     
 
   </div>
+
+</div>
+<div
+className="card p-3 mt-4 text-white"
+style={{
+background:"#131c31"
+}}
+>
+
+<h4>
+Today's Attendance
+</h4>
+
+<table className="table table-dark">
+
+<thead>
+
+<tr>
+
+<th>Student</th>
+
+<th>Status</th>
+
+<th>Date</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{attendance
+.slice(0,5)
+.map(item=>(
+
+<tr key={item.id}>
+
+<td>
+
+{item.student_name}
+
+</td>
+
+<td>
+
+{item.status}
+
+</td>
+
+<td>
+
+{item.date}
+
+</td>
+
+</tr>
+
+))}
+
+</tbody>
+
+</table>
 
 </div>
 

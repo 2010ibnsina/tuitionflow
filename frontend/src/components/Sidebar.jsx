@@ -4,8 +4,9 @@ import {
   FaUserGraduate,
   FaUserPlus,
   FaMoneyBillWave,
+  FaClipboardCheck,
   FaChalkboardTeacher,
-  FaArrowRight,
+  
 } from "react-icons/fa";
 
 import { useEffect, useState } from "react";
@@ -189,6 +190,19 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
 >
   <FaMoneyBillWave size={20} />
   Payments
+</Link>
+<Link
+  to="/attendance"
+  style={menuStyle}
+  onMouseEnter={(e) =>
+    (e.currentTarget.style.background = "rgba(255,255,255,0.20)")
+  }
+  onMouseLeave={(e) =>
+    (e.currentTarget.style.background = "rgba(255,255,255,0.08)")
+  }
+>
+  <FaClipboardCheck size={20} />
+  Attendance
 </Link>
       </div>
 
