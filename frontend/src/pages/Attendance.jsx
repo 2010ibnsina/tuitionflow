@@ -47,7 +47,7 @@ const today = selectedDate
 console.log("Students:", studentRes.data);
 console.log("Attendance:", attendanceRes.data);
 
-setStudents(studentRes.data);
+setStudents(studentRes.data.results || []);
 setAttendance(attendanceRes.data);
 
         } catch (err) {
