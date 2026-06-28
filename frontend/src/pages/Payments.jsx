@@ -16,8 +16,19 @@ function Payments() {
   });
 
   useEffect(() => {
-    getStudents();
-    getPayments();
+const getStudents = async () => {
+  try {
+    const response = await api.get("students/");
+
+    console.log("Students Response:", response.data);
+    console.log("Is Array:", Array.isArray(response.data));
+
+    setStudents(response.data);
+
+  } catch (error) {
+    console.log(error);
+  }
+};    getPayments();
   }, []);
 
   const getStudents = async () => {
