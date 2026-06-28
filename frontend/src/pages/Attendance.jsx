@@ -40,15 +40,15 @@ const today = selectedDate
         try {
 
             const [studentRes, attendanceRes] = await Promise.all([
+    api.get("/students/"),
+    api.get("/attendance/"),
+]);
 
-                api.get("/students/"),
+console.log("Students:", studentRes.data);
+console.log("Attendance:", attendanceRes.data);
 
-                api.get("/attendance/"),
-
-            ]);
-
-            setStudents(studentRes.data);
-            setAttendance(attendanceRes.data);
+setStudents(studentRes.data);
+setAttendance(attendanceRes.data);
 
         } catch (err) {
 
