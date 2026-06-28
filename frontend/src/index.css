@@ -1,0 +1,28 @@
+.react-calendar {
+    width: 100%;
+    background: #1a2238;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.react-calendar__tile {
+    color: white;
+    border-radius: 8px;
+}
+
+.present-day {
+    background: #16a34a !important;
+    color: white !important;
+}
+
+.absent-day {
+    background: #dc2626 !important;
+    color: white !important;
+}
+
+.late-day {
+    background: #f59e0b !important;
+    color: black !important;
+}

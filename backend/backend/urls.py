@@ -6,38 +6,39 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+from django.contrib import admin
+from django.urls import path, include
+
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 urlpatterns = [
 
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
 
-    # Authentication
-    path(
-        'api/accounts/',
-        include('accounts.urls')
-    ),
+    path("api/accounts/", include("accounts.urls")),
 
     path(
-        'api/token/',
+        "api/token/",
         TokenObtainPairView.as_view(),
-        name='token_obtain_pair'
     ),
 
     path(
-        'api/token/refresh/',
+        "api/token/refresh/",
         TokenRefreshView.as_view(),
-        name='token_refresh'
     ),
 
-    # Students API
-    path(
-        'api/',
-        include('students.urls')
-    ),
+    # Students
+    path("api/", include("students.urls")),
 
-    # Payments API
-    path(
-        'api/',
-        include('payments.urls')
-    ),
+    # Payments
+    path("api/", include("payments.urls")),
 
+    # Attendance
+    path("api/", include("attendance.urls")),
+
+    # Dashboard ✅
+    path("api/", include("dashboard.urls")),
 ]

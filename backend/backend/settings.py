@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'payments',
     'accounts',
     'attendance',
+    'dashboard',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
+import { generateReceipt } from "../utils/receiptGenerator";
+import { FaFilePdf } from "react-icons/fa";
 
 function Payments() {
   const [students, setStudents] = useState([]);
@@ -157,25 +159,53 @@ function Payments() {
                 <p className="text-muted">No payments found.</p>
               ) : (
                 payments.map((payment) => (
+                  
                   <div
-                    key={payment.id}
-                    className="border rounded-3 p-3 mb-3 bg-light"
-                  >
-                    <div className="d-flex justify-content-between">
-                      <strong>Student ID: {payment.student}</strong>
-                      <span className="badge bg-success">
-                        ৳{payment.amount}
-                      </span>
-                    </div>
+  key={payment.id}
+  className="border rounded-4 p-4 mb-3 bg-light shadow-sm"
+>
 
-                    <small className="text-muted">
-                      {payment.month} / {payment.year}
-                    </small>
+  <div className="d-flex justify-content-between align-items-center">
 
-                    <div className="text-end text-muted small">
-                      {payment.payment_date}
-                    </div>
-                  </div>
+    <div>
+
+      <h6 className="fw-bold mb-1">
+        👨 {payment.student_name || `Student ID: ${payment.student}`}
+      </h6>
+
+      <small className="text-muted">
+        Month: {payment.month} / {payment.year}
+      </small>
+
+      <br />
+
+      <small className="text-muted">
+        Date: {payment.payment_date}
+      </small>
+
+    </div>
+
+    <div className="text-end">
+
+      <h5 className="text-success">
+        ৳{payment.amount}
+      </h5>
+
+      <button
+        className="btn btn-danger btn-sm mt-2"
+        onClick={() => generateReceipt(payment)}
+      >
+        <FaFilePdf className="me-2" />
+        Download Receipt
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
                 ))
               )}
 

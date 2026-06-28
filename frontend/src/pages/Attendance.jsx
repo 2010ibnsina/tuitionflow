@@ -1,416 +1,190 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 
-import {
-  FaCheckCircle,
-  FaTimesCircle,
-  FaClock,
-  FaPlaneDeparture,
-  FaSearch,
-  FaCalendarAlt
-} from "react-icons/fa";
+import AttendanceHeader from "../components/attendance/AttendanceHeader";
+import AttendanceStats from "../components/attendance/AttendanceStats";
+import AttendanceFilters from "../components/attendance/AttendanceFilters";
+import AttendanceTable from "../components/attendance/AttendanceTable";
+import AttendanceCalendar from "../components/attendance/AttendanceCalendar";
+import AttendanceAnalytics
+from "../components/attendance/AttendanceAnalytics";
 
-function Attendance() {
 
-  const [students, setStudents] = useState([]);
 
-  const [search, setSearch] = useState("");
+export default function Attendance() {
 
-  const today =
-    new Date().toISOString().split("T")[0];
+    const [students, setStudents] = useState([]);
+    const [attendance, setAttendance] = useState([]);
 
-  useEffect(() => {
+    const [loading, setLoading] = useState(true);
 
-    loadStudents();
+    const [search, setSearch] = useState("");
+    const [selectedDate, setSelectedDate] = useState(
+        new Date()
+    );
 
-  }, []);
+const today = selectedDate
 
-  const loadStudents = async () => {
+    .toISOString()
 
-    try {
+    .split("T")[0];
 
-      const response =
-        await api.get("students/");
+    useEffect(() => {
 
-      setStudents(response.data);
+        loadData();
 
-    }
+    }, []);
 
-    catch(error){
+    const loadData = async () => {
 
-      console.log(error);
+        try {
 
-    }
+            const [studentRes, attendanceRes] = await Promise.all([
 
-  };
+                api.get("/students/"),
 
-  const markAttendance = async (
+                api.get("/attendance/"),
 
-    student,
+            ]);
 
-    status
+            setStudents(studentRes.data);
+            setAttendance(attendanceRes.data);
 
-  ) => {
+        } catch (err) {
 
-    try{
+            console.error(err);
 
-      await api.post(
+        } finally {
 
-        "attendance/",
-
-        {
-
-          student: student.id,
-
-          date: today,
-
-          status: status
+            setLoading(false);
 
         }
 
-      );
+    };
 
-      alert(
+    const markAttendance = async (studentId, status) => {
 
-        `${student.name} marked ${status}`
+        try {
 
-      );
+            const old = attendance.find(
 
-    }
+                (a) =>
 
-    catch(error){
+                    a.student === studentId &&
 
-      alert("Already marked today!");
+                    a.date === today
 
-    }
+            );
 
-  };
+            if (old) {
 
-  const filteredStudents =
-    students.filter(student=>
+                await api.put(
 
-      student.name
-      .toLowerCase()
-      .includes(
-        search.toLowerCase()
-      )
+                    `/attendance/${old.id}/`,
 
-    );
+                    {
 
-  return (
+                        ...old,
 
-<div
-className="container-fluid py-4"
-style={{
-background:"#eef4ff",
-minHeight:"100vh"
-}}
->
+                        status,
 
-<div
-className="card shadow-lg border-0 p-4 mb-4"
-style={{
-borderRadius:"20px"
-}}
->
+                    }
 
-<h2
-className="fw-bold"
->
+                );
 
-📚 Attendance Management
+            } else {
 
-</h2>
+                await api.post(
 
-<p className="text-muted">
+                    "/attendance/",
 
-Take today's attendance quickly.
+                    {
 
-</p>
+                        student: studentId,
 
-<div
-className="d-flex flex-wrap justify-content-between align-items-center mt-3"
->
+                        date: today,
 
-<div
-className="input-group"
-style={{
-maxWidth:"350px"
-}}
->
+                        status,
 
-<span className="input-group-text">
+                        remarks: "",
 
-<FaSearch/>
+                    }
 
-</span>
+                );
 
-<input
+            }
 
-className="form-control"
+            loadData();
 
-placeholder="Search Student..."
+        } catch (err) {
 
-onChange={(e)=>
+            console.error(err);
 
-setSearch(
+        }
 
-e.target.value
+    };
 
-)
+    if (loading)
 
-}
+        return <h3 className="text-center mt-5">Loading...</h3>;
+
+    return (
+
+        <div className="container-fluid py-4">
+
+            <AttendanceHeader />
+
+            <AttendanceStats
+
+                attendance={attendance}
+
+                students={students}
+
+            />
+<AttendanceAnalytics
+
+    attendance={attendance}
+
+    students={students}
 
 />
 
-</div>
 
-<div
-className="badge bg-primary fs-6 p-3"
->
+            <AttendanceFilters
 
-<FaCalendarAlt/>
+                search={search}
 
-{" "}
+                setSearch={setSearch}
 
-{today}
+            />
 
-</div>
+<AttendanceCalendar
 
-</div>
+    selectedDate={selectedDate}
 
-</div>
+    setSelectedDate={setSelectedDate}
 
-<div className="row">
+/>
 
-{
 
-filteredStudents.map(student=>(
 
-<div
+            <AttendanceTable
 
-className="col-lg-4 col-md-6 mb-4"
+                students={students}
 
-key={student.id}
+                attendance={attendance}
 
->
+                search={search}
 
-<div
+                onMark={markAttendance}
 
-className="card border-0 shadow h-100"
+                today={today}
 
-style={{
+            />
 
-borderRadius:"20px",
+        </div>
 
-transition:".3s"
-
-}}
-
-onMouseEnter={(e)=>
-
-e.currentTarget.style.transform="translateY(-8px)"
+    );
 
 }
 
-onMouseLeave={(e)=>
-
-e.currentTarget.style.transform="translateY(0px)"
-
-}
-
->
-
-<div className="card-body">
-
-<div className="text-center">
-
-<div
-
-style={{
-
-width:"70px",
-
-height:"70px",
-
-borderRadius:"50%",
-
-background:"linear-gradient(135deg,#2563eb,#4f46e5)",
-
-display:"flex",
-
-justifyContent:"center",
-
-alignItems:"center",
-
-color:"white",
-
-fontSize:"28px",
-
-margin:"auto",
-
-fontWeight:"bold"
-
-}}
-
->
-
-{
-
-student.name.charAt(0)
-
-}
-
-</div>
-
-<h4 className="mt-3">
-
-{
-
-student.name
-
-}
-
-</h4>
-
-<span className="badge bg-info">
-
-{
-
-student.subject
-
-}
-
-</span>
-
-</div>
-
-<hr/>
-
-<div className="d-grid gap-2">
-
-<button
-
-className="btn btn-success"
-
-onClick={()=>
-
-markAttendance(
-
-student,
-
-"Present"
-
-)
-
-}
-
->
-
-<FaCheckCircle/>
-
-{" "}
-
-Present
-
-</button>
-
-<button
-
-className="btn btn-warning"
-
-onClick={()=>
-
-markAttendance(
-
-student,
-
-"Late"
-
-)
-
-}
-
->
-
-<FaClock/>
-
-{" "}
-
-Late
-
-</button>
-
-<button
-
-className="btn btn-danger"
-
-onClick={()=>
-
-markAttendance(
-
-student,
-
-"Absent"
-
-)
-
-}
-
->
-
-<FaTimesCircle/>
-
-{" "}
-
-Absent
-
-</button>
-
-<button
-
-className="btn btn-secondary"
-
-onClick={()=>
-
-markAttendance(
-
-student,
-
-"Leave"
-
-)
-
-}
-
->
-
-<FaPlaneDeparture/>
-
-{" "}
-
-Leave
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-))
-
-}
-
-</div>
-
-</div>
-
-  );
-
-}
-
-export default Attendance;
