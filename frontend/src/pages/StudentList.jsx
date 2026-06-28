@@ -9,8 +9,19 @@ function StudentList() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    getStudents();
-  }, []);
+const getStudents = async () => {
+  try {
+    const response = await api.get("students/");
+
+    console.log("Students Response:", response.data);
+    console.log("Is Array:", Array.isArray(response.data));
+
+    setStudents(response.data);
+
+  } catch (error) {
+    console.log(error);
+  }
+};  }, []);
 
   const getStudents = async () => {
     try {
@@ -29,8 +40,19 @@ function StudentList() {
     if (!confirmDelete) return;
 
     await api.delete(`students/${id}/`);
-    getStudents();
-  };
+const getStudents = async () => {
+  try {
+    const response = await api.get("students/");
+
+    console.log("Students Response:", response.data);
+    console.log("Is Array:", Array.isArray(response.data));
+
+    setStudents(response.data);
+
+  } catch (error) {
+    console.log(error);
+  }
+};  };
 
   const filteredStudents = students.filter((student) =>
     student.name.toLowerCase().includes(search.toLowerCase())
